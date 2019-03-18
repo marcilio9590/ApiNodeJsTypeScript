@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { AddressSchema } from './address.schema';
 
-export const customerSchema = new mongoose.Schema({
+export const CustomerSchema = new mongoose.Schema({
     firtsName: {
         type: String,
         required: true,
