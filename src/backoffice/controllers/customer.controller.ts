@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, UseInterceptors } from "@nestjs/common";
-import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
 import { ValidatorInterceptor } from "src/interceptors/validator.interceptor";
 import { CreateCustomerContract } from "../contracts/customer.contracts";
+import { CreateCustomerDto } from "../dtos/create-customer-dto";
 
 // localhost:3000/v1/customer
 @Controller('v1/customers')
@@ -20,12 +20,12 @@ export class CustomerController {
 
     @Post()
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
-    post(@Body() body: Customer) {
+    post(@Body() body: CreateCustomerDto) {
         return new Result('Cliente Criado com Sucesso', true, body, null);
     }
 
     @Put(':document')
-    put(@Body() body: Customer, @Param('document') document) {
+    put(@Body() body, @Param('document') document) {
         return new Result('Cliente Alterado com Sucesso', true, body, null);
     }
 
