@@ -10,6 +10,8 @@ import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
 import { CustomerService } from "../services/customer.service";
 import bodyParser = require("body-parser");
+import { CreatePetContract } from "../contracts/customer/create-pet.contract";
+import { Pet } from "../models/pet.model";
 
 // localhost:3000/v1/customer
 @Controller('v1/customers')
@@ -72,6 +74,17 @@ export class CustomerController {
             return new Result(null, true, model, null);
         } catch (error) {
             return this.tratarExcessao(error, 'Não foi possivel cadastrar o endereço.', HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/pets')
+    @UseInterceptors(new ValidatorInterceptor(new CreatePetContract()))
+    async createPet(@Param('document') document, @Body() model: Pet) {
+        try {
+            await this.customerService.CreatePet(document, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            return this.tratarExcessao(error, 'Não foi possivel criar seu pet.', HttpStatus.BAD_REQUEST);
         }
     }
 

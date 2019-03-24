@@ -22,23 +22,24 @@ export const CustomerSchema = new mongoose.Schema({
             unique: true
         }
     },
-    pets: [
-        {
-            name: {
-                type: String
-            },
-            gender: {
-                type: String,
-                enum: ['male', 'female', 'none']
-            },
-            kind: {
-                type: String
-            },
-            brand: {
-                type: String
+    pets:
+        [
+            {
+                name: {
+                    type: String
+                },
+                gender: {
+                    type: String,
+                    enum: ['male', 'female', 'none']
+                },
+                kind: {
+                    type: String
+                },
+                brand: {
+                    type: String
+                }
             }
-        }
-    ],
+        ],
     billingAddress: AddressSchema,
     shippingAddress: AddressSchema,
     card: {
