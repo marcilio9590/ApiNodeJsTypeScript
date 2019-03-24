@@ -14,4 +14,8 @@ export class AccountService {
         return await user.save();
     }
 
+    async remove(id: String): Promise<User> {
+        return await this.model.remove(id);
+    }
+
 }

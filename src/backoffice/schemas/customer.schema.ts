@@ -2,11 +2,7 @@ import * as mongoose from 'mongoose';
 import { AddressSchema } from './address.schema';
 
 export const CustomerSchema = new mongoose.Schema({
-    firtsName: {
-        type: String,
-        required: true,
-    },
-    lastsName: {
+    name: {
         type: String,
         required: true,
     },
