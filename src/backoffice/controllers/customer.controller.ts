@@ -22,16 +22,6 @@ export class CustomerController {
         private readonly customerService: CustomerService) {
     }
 
-    @Get()
-    get() {
-        return new Result(null, true, [], null);
-    }
-
-    @Get(':document')
-    getById(@Param('document') document) {
-        return new Result(null, true, {}, null);
-    }
-
     @Post()
     @UseInterceptors(new ValidatorInterceptor(new CreateCustomerContract()))
     async post(@Body() model: CreateCustomerDto) {
@@ -88,14 +78,25 @@ export class CustomerController {
         }
     }
 
-    @Put(':document')
-    put(@Body() body, @Param('document') document) {
-        return new Result('Cliente Alterado com Sucesso', true, body, null);
+    @Put(':document/pets/:id')
+    @UseInterceptors(new ValidatorInterceptor(new CreatePetContract()))
+    async updatePet(@Param('document') document, @Body() model: Pet, @Param('id') id) {
+        try {
+            await this.customerService.UpdatePet(document, id, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            return this.tratarExcessao(error, 'Não foi possivel atualizar seu pet.', HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @Delete(':document')
-    delete(@Param('document') document) {
-        return new Result('Cliente Removido com Sucesso', true, null, null);
+    @Get()
+    async getAll() {
+        try {
+            const customers = await this.customerService.findAll();
+            return new Result(null, true, customers, null);
+        } catch (error) {
+            return this.tratarExcessao(error, 'Não foi possivel listar os clientes.', HttpStatus.BAD_REQUEST);
+        }
     }
 
     public tratarExcessao(error, message: string, status: number) {

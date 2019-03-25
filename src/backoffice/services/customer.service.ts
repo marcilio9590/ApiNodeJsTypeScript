@@ -43,4 +43,27 @@ export class CustomerService {
         }, options);
     }
 
+    async UpdatePet(document: string, id: string, data: Pet): Promise<Customer> {
+        return await this.model.findOneAndUpdate({ document: document, 'pets._id': id },
+            {
+                $set: {
+                    'pets.$': data
+                }
+            });
+    }
+
+    async findAll(): Promise<Customer[]> {
+        // se utilizar -name o moongose ira trazer todos os campos menos o name
+        return await this.model
+            .find({}, 'name email document')
+            .sort('name')
+            .exec();
+    }
+
+    //retornar com usuario
+
+    // ordenar resultados
+
+    // Query
+
 }
