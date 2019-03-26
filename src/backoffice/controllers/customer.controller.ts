@@ -99,6 +99,16 @@ export class CustomerController {
         }
     }
 
+    @Get(':document')
+    async getCustomer(@Param('document') document) {
+        try {
+            const customer = await this.customerService.find(document);
+            return new Result(null, true, customer, null);
+        } catch (error) {
+            return this.tratarExcessao(error, 'Não foi possivel detalhar o cliente.', HttpStatus.BAD_REQUEST);
+        }
+    }
+
     public tratarExcessao(error, message: string, status: number) {
         return new HttpException(new Result(message, false, null, error), status);
     }

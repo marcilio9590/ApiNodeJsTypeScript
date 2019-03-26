@@ -7,7 +7,6 @@ import { Pet } from '../models/pet.model';
 
 @Injectable()
 export class CustomerService {
-
     constructor(@InjectModel('Customer') private readonly model: Model<Customer>) {
     }
 
@@ -57,6 +56,13 @@ export class CustomerService {
         return await this.model
             .find({}, 'name email document')
             .sort('name')
+            .exec();
+    }
+
+    async find(document: String): Promise<Customer> {
+        return await this.model
+            .findOne({ document })
+            .populate('user', 'username')
             .exec();
     }
 
