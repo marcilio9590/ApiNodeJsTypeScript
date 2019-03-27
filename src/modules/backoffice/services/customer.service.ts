@@ -16,42 +16,6 @@ export class CustomerService {
         return await customer.save();
     }
 
-    async AddBillingAddress(document: string, data: Address): Promise<Customer> {
-        const options = { upsert: true };
-        return await this.model.findOneAndUpdate({ document }, {
-            $set: {
-                billingAddress: data,
-            },
-        }, options);
-    }
-
-    async AddShippingAddress(document: string, data: Address): Promise<Customer> {
-        const options = { upsert: true };
-        return await this.model.findOneAndUpdate({ document }, {
-            $set: {
-                shippingAddress: data,
-            },
-        }, options);
-    }
-
-    async CreatePet(document: string, data: Pet): Promise<Customer> {
-        const options = { upsert: true, new: true };
-        return await this.model.findOneAndUpdate({ document }, {
-            $push: {
-                pets: data
-            }
-        }, options);
-    }
-
-    async UpdatePet(document: string, id: string, data: Pet): Promise<Customer> {
-        return await this.model.findOneAndUpdate({ document: document, 'pets._id': id },
-            {
-                $set: {
-                    'pets.$': data
-                }
-            });
-    }
-
     async findAll(): Promise<Customer[]> {
         // se utilizar -name o moongose ira trazer todos os campos menos o name
         return await this.model
