@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, 
 import { ValidatorInterceptor } from "src/interceptors/validator.interceptor";
 import { CreateAddressContract } from "../contracts/customer/create-address.contract";
 import { CreateCustomerContract } from "../contracts/customer/create-customer.contracts";
-import { CreateCustomerDto } from "../dtos/create-customer-dto";
+import { CreateCustomerDto } from "../dtos/create-customer.dto";
 import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
@@ -12,6 +12,9 @@ import { CustomerService } from "../services/customer.service";
 import bodyParser = require("body-parser");
 import { CreatePetContract } from "../contracts/customer/create-pet.contract";
 import { Pet } from "../models/pet.model";
+import { async } from "rxjs/internal/scheduler/async";
+import { QueryDto } from "../dtos/query.dto";
+import { CustomerQueryContract } from "../contracts/customer/customer-query.contract";
 
 // localhost:3000/v1/customer
 @Controller('v1/customers')
@@ -106,6 +109,17 @@ export class CustomerController {
             return new Result(null, true, customer, null);
         } catch (error) {
             return this.tratarExcessao(error, 'Não foi possivel detalhar o cliente.', HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post('query')
+    @UseInterceptors(new ValidatorInterceptor(new CustomerQueryContract()))
+    async query(@Body() model: QueryDto) {
+        try {
+            const customers = await this.customerService.query(model);
+            return new Result(null, true, customers, null);
+        } catch (error) {
+            return this.tratarExcessao(error, 'Não foi possivel listar os clientes.', HttpStatus.BAD_REQUEST);
         }
     }
 
