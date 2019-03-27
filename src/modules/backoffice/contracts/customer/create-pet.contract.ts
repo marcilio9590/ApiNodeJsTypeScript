@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Address } from 'src/backoffice/models/address.model';
+import { Address } from 'src/modules/backoffice/models/address.model';
 import { Flunt } from 'src/utils/flunt';
 import { Contract } from '../contract';
-import { Pet } from 'src/backoffice/models/pet.model';
+import { Pet } from 'src/modules/backoffice/models/pet.model';
 
 @Injectable()
 export class CreatePetContract implements Contract {

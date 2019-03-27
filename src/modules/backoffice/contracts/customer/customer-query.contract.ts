@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Address } from 'src/backoffice/models/address.model';
 import { Flunt } from 'src/utils/flunt';
 import { Contract } from '../contract';
-import { Pet } from 'src/backoffice/models/pet.model';
-import { QueryDto } from 'src/backoffice/dtos/query.dto';
+import { QueryDto } from 'src/modules/backoffice/dtos/query.dto';
 
 @Injectable()
 export class CustomerQueryContract implements Contract {

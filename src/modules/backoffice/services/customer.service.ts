@@ -1,10 +1,9 @@
 import { Model } from 'mongoose';
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Customer } from '../models/customer.model';
 import { Address } from '../models/address.model';
 import { Pet } from '../models/pet.model';
-import { promises } from 'fs';
 import { QueryDto } from '../dtos/query.dto';
 
 @Injectable()

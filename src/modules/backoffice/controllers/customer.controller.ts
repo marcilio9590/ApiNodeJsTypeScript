@@ -9,10 +9,8 @@ import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
 import { CustomerService } from "../services/customer.service";
-import bodyParser = require("body-parser");
 import { CreatePetContract } from "../contracts/customer/create-pet.contract";
 import { Pet } from "../models/pet.model";
-import { async } from "rxjs/internal/scheduler/async";
 import { QueryDto } from "../dtos/query.dto";
 import { CustomerQueryContract } from "../contracts/customer/customer-query.contract";
 
