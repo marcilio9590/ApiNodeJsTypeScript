@@ -2,9 +2,8 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Customer } from '../models/customer.model';
-import { Address } from '../models/address.model';
-import { Pet } from '../models/pet.model';
 import { QueryDto } from '../dtos/query.dto';
+import { UpdateCustomerDTO } from '../dtos/customer/update-customer.dto';
 
 @Injectable()
 export class CustomerService {
@@ -14,6 +13,10 @@ export class CustomerService {
     async create(data: Customer): Promise<Customer> {
         const customer = new this.model(data);
         return await customer.save();
+    }
+
+    async update(document: string, data: UpdateCustomerDTO): Promise<Customer> {
+        return await this.model.findOneAndUpdate({ document }, data);
     }
 
     async findAll(): Promise<Customer[]> {
@@ -41,11 +44,4 @@ export class CustomerService {
             .sort(model.sort)
             .exec();
     }
-
-    //retornar com usuario
-
-    // ordenar resultados
-
-    // Query
-
 }
