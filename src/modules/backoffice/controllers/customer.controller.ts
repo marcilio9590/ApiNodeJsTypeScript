@@ -12,6 +12,8 @@ import { CustomerQueryContract } from "../contracts/customer/customer-query.cont
 import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
 import { async } from "rxjs/internal/scheduler/async";
 import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
+import { CreateCreditCardContract } from "../contracts/customer/create-credit-card.contract";
+import { CreditCard } from "../models/credit-card.model";
 
 // localhost:3000/v1/customers
 @Controller('v1/customers')
@@ -85,6 +87,17 @@ export class CustomerController {
             return new Result(null, true, customers, null);
         } catch (error) {
             return this.tratarExcessao(error, 'Não foi possivel listar os clientes.', HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Post(':document/credit-cards')
+    @UseInterceptors(new ValidatorInterceptor(new CreateCreditCardContract()))
+    async createOrUpdateCreditCard(@Param('document') document, @Body() model: CreditCard) {
+        try {
+            await this.customerService.saveOrUpdateCreditCard(document, model);
+            return new Result(null, true, model, null);
+        } catch (error) {
+            return this.tratarExcessao(error, 'Não foi possivel adicionar o cartão.', HttpStatus.BAD_REQUEST);
         }
     }
 
