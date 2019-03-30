@@ -1,20 +1,14 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseInterceptors } from "@nestjs/common";
 import { ValidatorInterceptor } from "src/interceptors/validator.interceptor";
-import { CreateAddressContract } from "../contracts/customer/create-address.contract";
 import { CreateCustomerContract } from "../contracts/customer/create-customer.contracts";
 import { CreateCustomerDto } from "../dtos/create-customer.dto";
-import { Address } from "../models/address.model";
 import { Customer } from "../models/customer.model";
 import { Result } from "../models/result.model";
 import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
 import { CustomerService } from "../services/customer.service";
-import { CreatePetContract } from "../contracts/customer/create-pet.contract";
-import { Pet } from "../models/pet.model";
 import { QueryDto } from "../dtos/query.dto";
 import { CustomerQueryContract } from "../contracts/customer/customer-query.contract";
-import { AddressService } from "../services/address.service";
-import { AddressType } from "../enums/address-type.enum";
 
 // localhost:3000/v1/customer
 @Controller('v1/customers')

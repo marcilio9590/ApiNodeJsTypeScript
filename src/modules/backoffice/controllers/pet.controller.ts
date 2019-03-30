@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { ValidatorInterceptor } from "src/interceptors/validator.interceptor";
 import { Result } from "../models/result.model";
-import { CreatePetContract } from "../contracts/customer/create-pet.contract";
 import { Pet } from "../models/pet.model";
 import { PetService } from "../services/pet.service";
+import { CreatePetContract } from "../contracts/pet/create-pet.contract";
 
 // localhost:3000/v1/pets
 @Controller('v1/pets')
