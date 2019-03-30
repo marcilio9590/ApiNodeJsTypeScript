@@ -8,7 +8,7 @@ import { User } from "../models/user.model";
 import { AccountService } from "../services/account.service";
 import { CustomerService } from "../services/customer.service";
 import { QueryDto } from "../dtos/query.dto";
-import { CustomerQueryContract } from "../contracts/customer/customer-query.contract";
+import { QueryContract } from "../contracts/customer/customer-query.contract";
 import { UpdateCustomerContract } from "../contracts/customer/update-customer.contract";
 import { async } from "rxjs/internal/scheduler/async";
 import { UpdateCustomerDTO } from "../dtos/customer/update-customer.dto";
@@ -80,7 +80,7 @@ export class CustomerController {
     }
 
     @Post('query')
-    @UseInterceptors(new ValidatorInterceptor(new CustomerQueryContract()))
+    @UseInterceptors(new ValidatorInterceptor(new QueryContract()))
     async query(@Body() model: QueryDto) {
         try {
             const customers = await this.customerService.query(model);

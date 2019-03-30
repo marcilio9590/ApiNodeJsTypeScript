@@ -27,9 +27,10 @@ export class Flunt {
             this.errors.push({ message: message });
     }
 
-    haxMax = (value, max, message) => {
-        if (!value || value > max)
+    isGreaterThan = (value, max, message) => {
+        if (!value || value > max) {
             this.errors.push({ message: message });
+        }
     }
 
     clear() {
