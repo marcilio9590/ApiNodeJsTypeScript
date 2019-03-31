@@ -1,17 +1,32 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CustomerSchema } from './schemas/customer.schema';
-import { UserSchema } from './schemas/user.schema';
-import { AccountService } from './services/account.service';
-import { CustomerService } from './services/customer.service';
-import { CustomerController } from './controllers/customer.controller';
-import { AddressService } from './services/address.service';
-import { PetService } from './services/pet.service';
-import { AddressController } from './controllers/address.controller';
-import { PetController } from './controllers/pet.controller';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+
+import { CustomerSchema } from 'src/modules/backoffice/schemas/customer.schema';
+import { UserSchema } from 'src/modules/backoffice/schemas/user.schema';
+
+import { AccountService } from 'src/modules/backoffice/services/account.service';
+import { CustomerService } from 'src/modules/backoffice/services/customer.service';
+import { AddressService } from 'src/modules/backoffice/services/address.service';
+import { PetService } from 'src/modules/backoffice/services/pet.service';
+import { AuthService } from 'src/shared/services/auth.service';
+import { JwtStrategy } from 'src/shared/strategies/jwt.strategy';
+
+import { CustomerController } from 'src/modules/backoffice/controllers/customer.controller';
+import { AddressController } from 'src/modules/backoffice/controllers/address.controller';
+import { PetController } from 'src/modules/backoffice/controllers/pet.controller';
+
 
 @Module({
     imports: [
+        PassportModule.register({ defaultStrategy: 'jwt' }),
+        JwtModule.register({
+            secretOrPrivateKey: '146fe98ce603',
+            signOptions: {
+                expiresIn: 3600
+            }
+        }),
         MongooseModule.forFeature([
             {
                 name: 'Customer',
@@ -32,7 +47,9 @@ import { PetController } from './controllers/pet.controller';
         AccountService,
         CustomerService,
         AddressService,
-        PetService
+        PetService,
+        AuthService,
+        JwtStrategy
     ]
 })
 export class BackofficeModule { }
