@@ -14,7 +14,7 @@ import { StoreModule } from 'src/modules/store/store.module';
       username: 'admin',
       password: 'admin',
       database: 'node_ts_store',
-      entities: ["**/entities/*.entity{.ts,.js}"],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true
     }),
     BackofficeModule,
