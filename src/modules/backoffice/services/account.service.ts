@@ -18,4 +18,8 @@ export class AccountService {
         return await this.model.remove(id);
     }
 
+    async findOneByUsername(username) {
+        return new User(username, "12345678901", true);
+    }
+
 }
