@@ -53,6 +53,8 @@ export class OrderController {
                 orderItem.price = product.price;
                 orderItem.quantity = item.quantity;
                 await this.orderItemService.post(orderItem);
+                product.quantityOnHand -= orderItem.quantity;
+                await this.productService.put(product.id, product);
             }
             return new Result(null, true, data, null);
         } catch (error) {
