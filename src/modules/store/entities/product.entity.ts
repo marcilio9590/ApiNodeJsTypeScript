@@ -1,14 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity({
-    name: 'products'
-})
+@Entity()
 export class Product {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ length: 80 })
-    title: StaticRange;
+    title: String;
 
     @Column('text')
     description: String;
