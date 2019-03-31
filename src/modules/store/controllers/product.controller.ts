@@ -1,7 +1,7 @@
 import { Body, Controller, HttpException, HttpStatus, Param, Post, UseInterceptors, Get, Put, Delete } from "@nestjs/common";
-import { ProductService } from "../services/product.service";
+import { ProductService } from "src/modules/store/services/product.service";
 import { Result } from "src/modules/backoffice/models/result.model";
-import { Product } from "../entities/product.entity";
+import { Product } from "src/modules/store/entities/product.entity";
 
 @Controller('v1/products')
 export class ProductController {
