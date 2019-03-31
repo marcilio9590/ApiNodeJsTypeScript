@@ -16,6 +16,7 @@ import { JwtStrategy } from 'src/shared/strategies/jwt.strategy';
 import { CustomerController } from 'src/modules/backoffice/controllers/customer.controller';
 import { AddressController } from 'src/modules/backoffice/controllers/address.controller';
 import { PetController } from 'src/modules/backoffice/controllers/pet.controller';
+import { AccountController } from 'src/modules/backoffice/controllers/account.controller';
 
 
 @Module({
@@ -39,6 +40,7 @@ import { PetController } from 'src/modules/backoffice/controllers/pet.controller
         ])
     ],
     controllers: [
+        AccountController,
         AddressController,
         CustomerController,
         PetController
