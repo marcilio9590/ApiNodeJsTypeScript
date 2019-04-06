@@ -21,6 +21,10 @@ export class AccountService {
         return await this.userModel.remove(id);
     }
 
+    async update(username: string, data: any): Promise<User> {
+        return await this.userModel.findOneAndUpdate({ username }, data);
+    }
+
     async authenticate(username, password): Promise<Customer> {
         return await this.customerModel.findOne({
             'user.username': username,
@@ -29,5 +33,7 @@ export class AccountService {
             .populate('user', '-password')
             .exec();
     }
+
+
 
 }
