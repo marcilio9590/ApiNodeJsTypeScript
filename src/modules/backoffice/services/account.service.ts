@@ -17,6 +17,29 @@ export class AccountService {
         return await user.save();
     }
 
+    async getCustomer(document: string) {
+        return await this.customerModel.findOne({
+            document: document
+        })
+            .populate('user', '-password')
+            .exec();
+    }
+
+    async findByUsername(username): Promise<User> {
+        return await this.userModel
+            .findOne({ username: username })
+            .exec();
+    }
+
+    async findByUsernamePassword(username, password): Promise<User> {
+        return await this.userModel
+            .findOne({
+                username: username,
+                password: password
+            })
+            .exec();
+    }
+
     async remove(id: String): Promise<User> {
         return await this.userModel.remove(id);
     }
@@ -25,15 +48,14 @@ export class AccountService {
         return await this.userModel.findOneAndUpdate({ username }, data);
     }
 
-    async authenticate(username, password): Promise<Customer> {
-        return await this.customerModel.findOne({
-            'user.username': username,
-            'user.password': password
-        })
-            .populate('user', '-password')
+    async authenticate(user: User): Promise<Customer> {
+        return await this.customerModel
+            .findOne(
+                {
+                    user: user,
+                }
+            )
             .exec();
     }
-
-
 
 }
